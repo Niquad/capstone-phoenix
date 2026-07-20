@@ -1,3 +1,8 @@
+Live app URL below:
+
+https://taskapp.44.201.136.158.nip.io/
+
+
 # Capstone — Phoenix: TaskApp on Real Kubernetes
 
 > **Mission.** Take the **TaskApp** you containerized and shipped to one server with
