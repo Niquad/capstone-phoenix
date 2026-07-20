@@ -1,0 +1,54 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Update packages
+      apt:
+        update_cache: yes
+
+    - name: Install dependencies
+      apt:
+        name:
+          - curl
+          - unzip
+          - wget
+        state: present
+
+- hosts: k3s_server
+  become: yes
+  tasks:
+
+    - name: Install K3s Server
+      shell: |
+        curl -sfL https://get.k3s.io | sh -
+      args:
+        creates: /etc/rancher/k3s/k3s.yaml
+
+    - name: Read node token
+      slurp:
+        src: /var/lib/rancher/k3s/server/node-token
+      register: node_token
+
+    - name: Store token as fact
+      set_fact:
+        k3s_token: "{{ node_token.content | b64decode | trim }}"
+
+- hosts: k3s_agents
+  become: yes
+
+  vars:
+    server_ip: "10.0.1.115"
+
+  tasks:
+
+    - name: Install K3s Agent
+      shell: |
+        curl -sfL https://get.k3s.io | \
+        K3S_URL=https://{{ server_ip }}:6443 \
+        K3S_TOKEN='{{ hostvars[groups["k3s_server"][0]]["k3s_token"] }}' \
+        sh -
+      args:
+        creates: /etc/systemd/system/k3s-agent.service
+
+        

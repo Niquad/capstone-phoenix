@@ -1,5 +1,5 @@
 # manifests/ — what you must produce
-
+QREc1NufOhRdryOV4QS531VSbR+6aScv+xR/TQFrqUM=
 This is a **checklist, not an answer key.** The K8s lesson's reference manifests
 (`cicd_dockerized/k8s-lesson/manifests/`) target a single-node laptop cluster. Here you
 re-author them for real multi-node infra and add the hardening the brief requires.
