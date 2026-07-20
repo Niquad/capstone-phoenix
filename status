@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"taskapp","namespace":"argocd"},"spec":{"destination":{"namespace":"taskapp","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"manifests","repoURL":"https://github.com/Niquad/capstone-phoenix.git","targetRevision":"HEAD"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true"]}}}
+  creationTimestamp: "2026-07-20T12:08:06Z"
+  generation: 5
+  name: taskapp
+  namespace: argocd
+  resourceVersion: "362268"
+  uid: 3da853ed-c8a3-46d5-be49-c605719d287c
+spec:
+  destination:
+    namespace: taskapp
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: manifests
+    repoURL: https://github.com/Niquad/capstone-phoenix.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+status:
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-07-20T12:08:07Z"
+    status: Healthy
+  reconciledAt: "2026-07-20T12:17:33Z"
+  resourceHealthSource: appTree
+  sourceType: Directory
+  sync:
+    comparedTo:
+      destination:
+        namespace: taskapp
+        server: https://kubernetes.default.svc
+      source:
+        path: manifests
+        repoURL: https://github.com/Niquad/capstone-phoenix.git
+        targetRevision: HEAD
+    revision: 0f70049322b343799671bfabfd56f6535d3d39db
+    status: Synced
